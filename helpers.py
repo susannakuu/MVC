@@ -19,6 +19,15 @@ def lisa_elemendid(elementide_nimekiri):
     global elemendid
     elemendid = elementide_nimekiri
 
+#loeme ELEMENDID korraga, aga nii, et tagastame iga kord üks element
+def loe_elemendid():
+    global elemendid
+    loetud_elemendid = []
+    for element in elemendid:
+        loetud_elemendid.append(element)
+    return loetud_elemendid
+
+
 def main():
     #loome katseandmestiku
     katse_elemendid = [
@@ -29,14 +38,13 @@ def main():
 
     #testime elementide lisamist
     lisa_elemendid(katse_elemendid)
-    print(elemendid)
 
     #testime elemendi lisamist
     lisa_element("kohupiim", 0.60, 15)
-    print(elemendid)
-
     lisa_element("vein", 0.80, 5)
-    print(elemendid)
+
+    #testime elementide lugemist
+    print(loe_elemendid())
 
 
 #käivitame
