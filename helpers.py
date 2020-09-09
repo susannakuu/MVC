@@ -5,8 +5,7 @@ def lisa_element(nimetus, hind, kogus):
     global elemendid
     nimetused = []
     for element in elemendid:
-        if nimetus in element.values():
-            nimetused.append(nimetus)
+        nimetused.append(list(element.values())[0])
     if nimetus in nimetused:
         print("Element {} on juba olemas".format(nimetus))
     else:
@@ -59,6 +58,7 @@ def main():
     #testime elementide lugemist
     print(loe_element("kohupiim"))
     print(loe_element("kirss"))
+    print(elemendid)
 
 
 #käivitame
