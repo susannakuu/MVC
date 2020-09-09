@@ -38,6 +38,17 @@ def loe_element(nimetus):
     else:
         return elemendid[(nimetused.index(nimetus))]
 
+#uuendame KONKREETSE elemendi
+def uuenda_element(nimetus, hind, kogus):
+    global elemendid
+    nimetused = []
+    for element in elemendid:
+        nimetused.append(list(element.values())[0])
+    if nimetus not in nimetused:
+        print( "Elementi {} ei saa uuendada, sest seda ei eksisteeri".format(nimetus))
+    else:
+        elemendid[(nimetused.index(nimetus))] = {"nimetus":nimetus, "hind":hind, "kogus":kogus}
+
 
 
 def main():
@@ -56,9 +67,13 @@ def main():
     lisa_element("vein", 0.80, 5)
 
     #testime elementide lugemist
-    print(loe_element("kohupiim"))
-    print(loe_element("kirss"))
-    print(elemendid)
+    #print(loe_element("kohupiim"))
+    #print(loe_element("kirss"))
+
+    #testime elemendi uuendamist
+    uuenda_element("vein", 10.0, 10)
+    print(loe_element("vein"))
+
 
 
 #käivitame
