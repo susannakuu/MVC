@@ -27,6 +27,19 @@ def loe_elemendid():
         loetud_elemendid.append(element)
     return loetud_elemendid
 
+#loeme KONKREETNE element
+def loe_element(nimetus):
+    global elemendid
+    nimetused = []
+    for element in elemendid:
+            nimetused.append(list(element.values())[0])
+    print(nimetused)
+    if nimetus not in nimetused:
+        return "Element {} ei eksisteeri".format(nimetus)
+    else:
+        return elemendid[(nimetused.index(nimetus))]
+
+
 
 def main():
     #loome katseandmestiku
@@ -44,7 +57,8 @@ def main():
     lisa_element("vein", 0.80, 5)
 
     #testime elementide lugemist
-    print(loe_elemendid())
+    print(loe_element("kohupiim"))
+    print(loe_element("kirss"))
 
 
 #käivitame
