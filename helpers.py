@@ -36,7 +36,7 @@ def loe_element(nimetus):
     if nimetus not in nimetused:
         return "Element {} ei eksisteeri".format(nimetus)
     else:
-        return elemendid[(nimetused.index(nimetus))]
+        return elemendid[nimetused.index(nimetus)]
 
 #uuendame KONKREETSE elemendi
 def uuenda_element(nimetus, hind, kogus):
