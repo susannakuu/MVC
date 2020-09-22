@@ -1,3 +1,5 @@
+import exceptions
+
 elemendid = []
 
 # lisame ELEMENT juurde
@@ -7,18 +9,16 @@ def lisa_element(nimetus, hind, kogus):
     for element in elemendid:
         nimetused.append(list(element.values())[0])
     if nimetus in nimetused:
-        print("Element {} on juba olemas".format(nimetus))
+        raise exceptions.ElementJubaOlemas("Element {} on juba olemas".format(nimetus))
     else:
-        elemendid.append({"nimetus":nimetus, "hind": hind, "kogus": kogus})
-
-
+        elemendid.append({"nimetus":nimetus, "hind":hind, "kogus":kogus})
 
 # lisame ELEMENDID KORRAGA juurde
 def lisa_elemendid(elementide_nimekiri):
     global elemendid
     elemendid = elementide_nimekiri
 
-#loeme ELEMENDID korraga, aga nii, et tagastame iga kord üks element
+# loeme ELEMENDID korraga
 def loe_elemendid():
     global elemendid
     loetud_elemendid = []
@@ -26,79 +26,75 @@ def loe_elemendid():
         loetud_elemendid.append(element)
     return loetud_elemendid
 
-#loeme KONKREETNE element
+# loeme KONKREETNE element
 def loe_element(nimetus):
     global elemendid
     nimetused = []
     for element in elemendid:
             nimetused.append(list(element.values())[0])
-    print(nimetused)
     if nimetus not in nimetused:
-        return "Element {} ei eksisteeri".format(nimetus)
+        raise exceptions.ElemendiEiOle("Elementi {} ei eksisteeri".format(nimetus))
     else:
-        return elemendid[nimetused.index(nimetus)]
+       return elemendid[nimetused.index(nimetus)]
 
-#uuendame KONKREETSE elemendi
+# uuendame KONKREETSET elementi
 def uuenda_element(nimetus, hind, kogus):
     global elemendid
     nimetused = []
     for element in elemendid:
         nimetused.append(list(element.values())[0])
     if nimetus not in nimetused:
-        print( "Elementi {} ei saa uuendada, sest seda ei eksisteeri".format(nimetus))
+        print("Elementi {} ei saa uuendada, kuna ta ei eksisteeri".format(nimetus))
     else:
-        elemendid[(nimetused.index(nimetus))] = {"nimetus":nimetus, "hind":hind, "kogus":kogus}
+        elemendid[nimetused.index(nimetus)] = {"nimetus":nimetus, "hind":hind, "kogus":kogus}
 
-#kustutame KONKREETSE elemendi
+# kustutame KONKREETSET elementi
 def kustuta_element(nimetus):
     global elemendid
     nimetused = []
     for element in elemendid:
         nimetused.append(list(element.values())[0])
     if nimetus not in nimetused:
-        print( "Elementi {} ei saa kustutada, sest seda ei eksisteeri".format(nimetus))
+        print("Elementi {} ei saa kustutada, kuna ta ei eksisteeri".format(nimetus))
     else:
-        elemendid.remove(elemendid[(nimetused.index(nimetus))])
+        elemendid.remove(elemendid[nimetused.index(nimetus)])
 
-#kustutame KÕIK elemendid
+# kustutame KÕIK elemendid
 def kustuta_elemendid():
     global elemendid
     elemendid.clear()
 
-
 def main():
-    #loome katseandmestiku
+    # loome katseandmestik
     katse_elemendid = [
-        {"nimetus": "leib", "hind": 0.80, "kogus": 20},
-        {"nimetus": "piim", "hind": 0.50, "kogus": 15},
-        {"nimetus": "vein", "hind": 5.60, "kogus": 5},
+        {"nimetus": "leib", "hind":0.80, "kogus": 20},
+        {"nimetus": "piim", "hind":0.50, "kogus": 15},
+        {"nimetus": "vein", "hind":5.60, "kogus": 5},
     ]
 
-    #testime elementide lisamist
+    # testime elementide lisamist
     lisa_elemendid(katse_elemendid)
 
-    #testime elemendi lisamist
-    lisa_element("kohupiim", 0.60, 15)
-    lisa_element("vein", 0.80, 5)
+    # testime üksiku elemendi lisamist
+    lisa_element("kohupiim", 0.90, 15)
+    #lisa_element("vein", 5.60, 5)
 
-    #testime elementide lugemist
-    #print(loe_element("kohupiim"))
-    #print(loe_element("kirss"))
+    # testime elementide lugemist
+    #print(loe_element("vein"))
+    #print(loe_element("limonaad"))
 
-    #testime elemendi uuendamist
+    # testime elemendi uuendamist
     uuenda_element("vein", 10.0, 10)
     print(loe_element("vein"))
 
-    #testime elemendi kustutamist
-    kustuta_element("leib")
-    print(loe_element("leib"))
+    # testime elemendi kustutamist
+    kustuta_element("vein")
+    print(loe_element("vein"))
 
-    #testime elementide kustutamist
+    # testime elementide kustutamist
     kustuta_elemendid()
-    print(elemendid)
+    print(loe_elemendid())
 
-
-
-#käivitame
+# käivitame
 if __name__ == "__main__":
     main()
