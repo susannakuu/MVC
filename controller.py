@@ -1,46 +1,43 @@
 import exceptions
 class Controller:
-    def __init__(self, mudel, vaade):
-        self.mudel = mudel
-        self.vaade = vaade
+    def __init__(self, model, view):
+        self.model = model
+        self.view = view
 
-    # elementide kuvamine
-    def kuva_elemendid(self):
-        elemendid = self.mudel.loe_elemendid()
-        self.vaade.kuva_elemendid(elemendid)
-
-    # elemendi kuvamine
-    def kuva_element(self, nimetus):
+    def addItem(self, name, price, amount):
         try:
-            element = self.mudel.loe_element(nimetus)
-            self.vaade.kuva_element(nimetus, element)
-        except exceptions.ElemendiEiOle as e:
-            self.vaade.veateade_elementi_ei_ole(nimetus, e)
+            self.model.addItem(name, price, amount)
+            print("Ok!")
+        except:
+            print("Problem!")
 
-    # elemendi lisamine
-    def lisa_element(self, nimetus, hind, kogus):
-        if(hind <= 0):
-            print("Hind peab olema suurem kui 0 EUR")
-        elif(kogus <= 0):
-            print("Kogus peab olema suurem kui 0")
+    def showItems(self):
+        items = self.model.showItems()
+        self.view.showItems(items)
+
+    def showItem(self, name):
         try:
-            self.mudel.lisa_element(nimetus, hind, kogus)
-            self.vaade.lisa_element(nimetus, hind, kogus)
-        except exceptions.ElementJubaOlemas as e:
-            self.vaade.veateade_element_juba_olemas(nimetus, e)
+            item = self.model.showItem(name)
+            self.view.showItem(item)
+        except:
+            self.view.noItemError(name)
 
-    # elemendi uuendamine
-    def uuenda_element(self, nimetus, hind, kogus):
-        if (hind <= 0):
-            print("Hind peab olema suurem kui 0 EUR")
-        elif (kogus <= 0):
-            print("Kogus peab olema suurem kui 0")
-        else:
-            vana_element = self.mudel.loe_element(nimetus)
-            self.mudel.uuenda_element(nimetus, hind, kogus)
-            self.vaade.uuenda_element(nimetus, vana_element['hind'], vana_element['kogus'], hind, kogus)
+    def deleteItem(self, name):
+        try:
+            self.model.deleteItem(name)
+            self.view.deleteItem(name)
+        except:
+            self.view.noItemToDelete(name)
 
-    # elemendi kustutamine
-    def kustuta_element(self, nimetus):
-        self.mudel.kustuta_element(nimetus)
-        self.vaade.kustuta_element(nimetus)
+    def deleteAllItems(self):
+        self.model.deleteAllItems()
+        self.view.deleteAllItems()
+
+    def updateItem(self, name, price, amount):
+        try:
+            self.model.updateItem(name, price, amount)
+            self.view.updateItem(name)
+            self.showItem(name)
+        except:
+            self.view.noItemToUpdateError(name)
+            self.view.noItemError(name)
