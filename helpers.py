@@ -1,100 +1,69 @@
 import exceptions
+from product import Product
 
-elemendid = []
+# repsresents shop structure
+# list of Product type objects
+items = []
 
-# lisame ELEMENT juurde
-def lisa_element(nimetus, hind, kogus):
-    global elemendid
-    nimetused = []
-    for element in elemendid:
-        nimetused.append(list(element.values())[0])
-    if nimetus in nimetused:
-        raise exceptions.ElementJubaOlemas("Element {} on juba olemas".format(nimetus))
+# add item to items
+def addItem(name, price, amount):
+    global items
+    # create product with reqiure description
+    product = Product(name, price, amount)
+    # control is item already exists
+    if product in items:
+        raise exceptions.ItemExists("Item {} is exists".format(name))
     else:
-        elemendid.append({"nimetus":nimetus, "hind":hind, "kogus":kogus})
-
-# lisame ELEMENDID KORRAGA juurde
-def lisa_elemendid(elementide_nimekiri):
-    global elemendid
-    elemendid = elementide_nimekiri
-
-# loeme ELEMENDID korraga
-def loe_elemendid():
-    global elemendid
-    loetud_elemendid = []
-    for element in elemendid:
-        loetud_elemendid.append(element)
-    return loetud_elemendid
-
-# loeme KONKREETNE element
-def loe_element(nimetus):
-    global elemendid
-    nimetused = []
-    for element in elemendid:
-            nimetused.append(list(element.values())[0])
-    if nimetus not in nimetused:
-        raise exceptions.ElemendiEiOle("Elementi {} ei eksisteeri".format(nimetus))
+        items.append(product)
+# show items
+def showItems():
+    global items
+    # control if items exists
+    if len(items) == 0:
+        raise exceptions.ItemExists("List of items is empty")
     else:
-       return elemendid[nimetused.index(nimetus)]
-
-# uuendame KONKREETSET elementi
-def uuenda_element(nimetus, hind, kogus):
-    global elemendid
-    nimetused = []
-    for element in elemendid:
-        nimetused.append(list(element.values())[0])
-    if nimetus not in nimetused:
-        print("Elementi {} ei saa uuendada, kuna ta ei eksisteeri".format(nimetus))
-    else:
-        elemendid[nimetused.index(nimetus)] = {"nimetus":nimetus, "hind":hind, "kogus":kogus}
-
-# kustutame KONKREETSET elementi
-def kustuta_element(nimetus):
-    global elemendid
-    nimetused = []
-    for element in elemendid:
-        nimetused.append(list(element.values())[0])
-    if nimetus not in nimetused:
-        print("Elementi {} ei saa kustutada, kuna ta ei eksisteeri".format(nimetus))
-    else:
-        elemendid.remove(elemendid[nimetused.index(nimetus)])
-
-# kustutame KÕIK elemendid
-def kustuta_elemendid():
-    global elemendid
-    elemendid.clear()
-
-def main():
-    # loome katseandmestik
-    katse_elemendid = [
-        {"nimetus": "leib", "hind":0.80, "kogus": 20},
-        {"nimetus": "piim", "hind":0.50, "kogus": 15},
-        {"nimetus": "vein", "hind":5.60, "kogus": 5},
-    ]
-
-    # testime elementide lisamist
-    lisa_elemendid(katse_elemendid)
-
-    # testime üksiku elemendi lisamist
-    lisa_element("kohupiim", 0.90, 15)
-    #lisa_element("vein", 5.60, 5)
-
-    # testime elementide lugemist
-    #print(loe_element("vein"))
-    #print(loe_element("limonaad"))
-
-    # testime elemendi uuendamist
-    uuenda_element("vein", 10.0, 10)
-    print(loe_element("vein"))
-
-    # testime elemendi kustutamist
-    kustuta_element("vein")
-    print(loe_element("vein"))
-
-    # testime elementide kustutamist
-    kustuta_elemendid()
-    print(loe_elemendid())
-
-# käivitame
-if __name__ == "__main__":
-    main()
+        return items
+# show item
+def showItem(name):
+    global items
+    # control all items step by step
+    for item in items:
+        # if the name is the same as we search
+        if(item.getName() == name):
+            return item
+        else:
+            continue
+            raise exceptions.ItemExists("Not found {} item".format(name))
+# delete item
+def deleteItem(name):
+    global items
+    isDeleted = False
+    for item in items:
+        # if the name is the same as we search
+        if (item.getName() == name):
+            items.remove(item)
+            isDeleted = True
+        else:
+            continue
+    if (isDeleted != True):
+        raise exceptions.ItemNotExists("Not found {} item.".format(name))
+# delete all items
+def deleteAllItems():
+    global items
+    items.clear()
+# update items price and amount
+def updateItem(name, price, amount):
+    global items
+    isUpdated = False
+    # control all items step by step
+    for item in items:
+        # if the name is the same as we search
+        if(item.getName() == name):
+            # update item
+            item.setPrice(price)
+            item.setAmount(amount)
+            isUpdated = True
+        else:
+            continue
+    if (isUpdated != True):
+        raise exceptions.ItemNotExists("Not found {} item".format(name))
