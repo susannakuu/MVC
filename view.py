@@ -1,37 +1,45 @@
 class View:
-    def kuva_elemendid(self, elemendid):
-        print("Kõik elemendid")
-        for element in elemendid:
-            print("- {}".format(element))
+    # show items
+    def showItems(self, items):
+        print("Shop items")
+        print("============================")
+        print("name\t|\tprice\t|\tamount")
+        for item in items:
+            print(item.getName()+"\t|\t"+
+                  str(item.getPrice())+"\t\t|\t"+
+                  str(item.getAmount()))
+            print("---------------------------")
+        print("============================")
+    # show item
+    def showItem(self, item):
+        print("Shop item {}".format(item.getName()))
+        print("============================")
+        print("name\t|\tprice\t|\tamount")
+        print(item.getName()+"\t|\t"+
+                  str(item.getPrice())+"\t\t|\t"+
+                  str(item.getAmount()))
+        print("---------------------------")
+        print("============================")
 
-    def kuva_element(self, nimetus, element):
-        print(" Kuvame {} elementi andmed".format(nimetus))
-        print(element)
-
-    def lisa_element(self, nimetus, hind, kogus):
-        print("Elemendi lisamine")
-        print("Lisatud {} hinnaga {}EUR koguses {}".format(nimetus, hind, kogus))
-
-    def veateade_element_juba_olemas(self, nimetus, veateade):
-        print("===============================================")
-        print("Elemendi {} lisamise probleem".format(nimetus))
-        print(veateade)
-        print("===============================================")
-
-    def veateade_elementi_ei_ole(self, nimetus, veateade):
-        print("===============================================")
-        print("Elemendi {} lugemise probleem".format(nimetus))
-        print(veateade)
-        print("===============================================")
-
-
-    def uuenda_element(self, nimetus, vana_hind, vana_kogus, uus_hind, uus_kogus):
-        print("Elemendi {} uuendamine".format(nimetus))
-        if(vana_hind != uus_hind):
-            print("Muudetud hind: {} -> {}".format(vana_hind, uus_hind))
-        if(vana_kogus != uus_kogus):
-            print("Muudetud kogus: {} -> {}".format(vana_kogus, uus_kogus))
-
-    def kustuta_element(self, nimetus):
-        print("Elemendi {} kustutamine".format(nimetus))
-        print("Element {} on kustutatud elementide nimekirjast".format(nimetus))
+    # no item error
+    def noItemError(self, name):
+        print("============================")
+        print("Shop do no not consist item {}".format(name))
+        print("============================")
+    # delete item
+    def deleteItem(self, name):
+        print("Item {} has been deleted.".format(name))
+    # delete all items
+    def deleteAllItems(self):
+        print("All items have been deleted.")
+    # update item
+    def updateItem(self, name):
+        print("Shop item {} is updated.".format(name))
+        print("============================")
+     # no item to update error
+    def noItemToUpdateError(self, name):
+        print("============================")
+        print("Not possible to update item {}".format(name))
+        print("============================")
+    def noItemToDelete(self, name):
+        print("Failed to delete {}, item doesn't exist.".format(name))
