@@ -1,26 +1,24 @@
 import helpers
+
 class Model:
-    # konstruktor
-    def __init__(self, elemendid):
-        self.lisa_elemendid(elemendid)
-    # elemendite lisamine
-    def lisa_elemendid(self, elemendid):
-        helpers.lisa_elemendid(elemendid)
-
-    def lisa_element(self, nimetus, hind, kogus):
-        helpers.lisa_element(nimetus, hind, kogus)
-    # elementide lugemine
-    def loe_elemendid(self):
-        return helpers.loe_elemendid()
-
-    def loe_element(self, nimetus):
-        return helpers.loe_element(nimetus)
-    # elemendi uuendamine
-    def uuenda_element(self, nimetus, hind, kogus):
-        helpers.uuenda_element(nimetus, hind, kogus)
-    # elementide kustutamine
-    def kustuta_element(self, nimetus):
-        helpers.kustuta_element(nimetus)
-
-    def kustuta_elemendid(self):
-        helpers.kustuta_elemendid()
+    # get shop data - [] of products
+    def __init__(self, items):
+        self.items = items
+    # add item to items
+    def addItem(self, name, price, amount):
+        helpers.addItem(name, price, amount)
+    # show items
+    def showItems(self):
+        return helpers.showItems()
+    # show item
+    def showItem(self, name):
+        return helpers.showItem(name)
+    # delete item
+    def deleteItem(self, name):
+        helpers.deleteItem(name)
+    # delete all items
+    def deleteAllItems(self):
+        helpers.deleteAllItems()
+    # update item
+    def updateItem(self, name, price, amount):
+        helpers.updateItem(name, price, amount)
