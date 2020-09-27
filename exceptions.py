@@ -1,5 +1,6 @@
-class ElementJubaOlemas(Exception):
+  
+class ItemExists(Exception):
     pass
 
-class ElemendiEiOle(Exception):
+class ItemNotExists(Exception):
     pass
